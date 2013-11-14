@@ -9,7 +9,8 @@ import java.util.List;
 
 
 public class Var<T> {
-    Iterator<T> i;
+    long index=0;
+    Iterator<T> it;
     Collection<T> coll;
 //    private LinkedList<Pred> preds;
     List<IndexInPred> preds = new ArrayList<IndexInPred>();
@@ -28,28 +29,35 @@ public class Var<T> {
     }
     public Var(Collection<T> collection) {    
         coll = collection;
-        i = coll.iterator();
-//        next();
+        it = coll.iterator();
+        next();
     }
     public Var(T[] array){
         coll = Arrays.asList(array);
-        i = coll.iterator();
-//        next();
+        it = coll.iterator();
+        next();
     }
     public boolean next(){
-        if(i.hasNext()){
-            currval = (T) i.next();            
+        if(it.hasNext()){
+            index++;
+            currval = (T) it.next();            
+            return true;
         }
         return false;
+//        throw new Pred.SearchExhaustedException();
     }
     public boolean hasNext(){
-        return i.hasNext();
+        return it.hasNext();
     }
     public T getCurrval(){
         return currval;
     }
+    public long getCurrIndex(){
+        return index;
+    }
     public void reset(){        
-        i = coll.iterator();
-        currval = (T) i.next();
+        it = coll.iterator();
+        currval = (T) it.next();
+        index=0;
     }
 }

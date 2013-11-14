@@ -17,7 +17,7 @@ public class Test {
                 // TODO Auto-generated method stub
                 int ia = a.getCurrval();
                 int ib = (Integer) b.getCurrval();
-                if (ia+ib<3) 
+                if (ia+ib<4) 
                     return true;
                 else 
                     return false;
@@ -27,50 +27,18 @@ public class Test {
         pred.addVar(b);
         
         boolean sol;
+        
+        for(int i=0; i<6; i++){
+            sol = pred.findNextSolution();
+            if (sol){
+                System.out.println("a: "+a.getCurrval()+", b: "+b.getCurrval());
+                System.out.println("sol "+sol);
+            } else {
+                System.out.println("search exhausted");
+            }            
+        }
 
-        sol = pred.findNextSolution();        
-        System.out.println("a: "+a.getCurrval()+", b: "+b.getCurrval());
-        System.out.println("sol "+sol);
-        
-        sol = pred.findNextSolution();        
-        System.out.println("a: "+a.getCurrval()+", b: "+b.getCurrval());
-        System.out.println("sol "+sol);
-        
-        sol = pred.findNextSolution();        
-        System.out.println("a: "+a.getCurrval()+", b: "+b.getCurrval());
-        System.out.println("sol "+sol);
-        
-        sol = pred.findNextSolution();        
-        System.out.println("a: "+a.getCurrval()+", b: "+b.getCurrval());
-        System.out.println("sol "+sol);
-        
-        sol = pred.findNextSolution();        
-        System.out.println("a: "+a.getCurrval()+", b: "+b.getCurrval());
-        System.out.println("sol "+sol);
-        
-        sol = pred.findNextSolution();        
-        System.out.println("a: "+a.getCurrval()+", b: "+b.getCurrval());
-        System.out.println("sol "+sol);
-        
-        sol = pred.findNextSolution();        
-        System.out.println("a: "+a.getCurrval()+", b: "+b.getCurrval());
-        System.out.println("sol "+sol);
-        
-        sol = pred.findNextSolution();        
-        System.out.println("a: "+a.getCurrval()+", b: "+b.getCurrval());
-        System.out.println("sol "+sol);
-        
-        sol = pred.findNextSolution();        
-        System.out.println("a: "+a.getCurrval()+", b: "+b.getCurrval());
-        System.out.println("sol "+sol);
 
-        sol = pred.findNextSolution();        
-        System.out.println("a: "+a.getCurrval()+", b: "+b.getCurrval());
-        System.out.println("sol "+sol);
-        
-        sol = pred.findNextSolution();        
-        System.out.println("a: "+a.getCurrval()+", b: "+b.getCurrval());
-        System.out.println("sol "+sol);
         
         
     }
