@@ -49,7 +49,7 @@ public class NumberedString {
 	
 	public CharSequence getLine(int i){
 	    CharSequence result;
-	    System.out.println("i "+i);
+	    System.out.println("it "+i);
 	    System.out.println("lines "+lines);
 	    if (i == 1) {
 	        if (lines.size() == 0)

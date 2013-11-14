@@ -6,6 +6,9 @@ import java.util.List;
 
 
 public abstract class Pred {
+    public static class SearchExhaustedException extends RuntimeException {        
+    }
+    
 //    enum Boolop {
 //        AND,OR
 //    };
@@ -21,7 +24,7 @@ public abstract class Pred {
     }
     int vari=0;
     int varj=0;
-    private void resetLower(){
+    private void resetLower(int vari){
         for (int j=vari; j>-1; j--){
             vars.get(j).reset();                    
         }        
@@ -29,31 +32,32 @@ public abstract class Pred {
     public  boolean stepVars(){
         if (last) return false;
         vari = 0;
-        System.out.println("vari "+vari);
+//        System.out.println("vari "+vari);        
         while(vari<vars.size()){
             Var v = vars.get(vari);
             if (v.hasNext()){
                 v.next();
                 return true;
-            } else {             
-                if (vari == vars.size()){
+            } else {
+                if (vari == vars.size()-1){
                     last = true;
-                    System.out.println("vari "+vari+"  last");
                     return false;
+                } else {
+                    resetLower(vari);
+                    vari++; 
                 }
-                resetLower();               
-            }
-            vari++;
-        }        
-        last = true;
+            }         
+        }                
         return false;        
     }
     boolean last=false;
     boolean first=true;
     
-    public boolean backtrackRecursive(){
-        return stepVars();
-        
+    public boolean backtrack(){
+        while(!test()){
+            if (!stepVars()) return false;
+        }
+        return true;
     }
     
 //    public boolean next()
@@ -61,7 +65,20 @@ public abstract class Pred {
     public boolean findNextSolution(){        
 //        vars.get(vars.size()-1).next();
 //        if (last) return false;
-        return backtrackRecursive();
+        if (first){
+            first = false;
+        } else {
+            stepVars();
+        }
+        return backtrack();        
+    }
+    public void findNextSolutionEx(){
+        if (first){
+            first = false;
+        } else {
+            stepVars();
+        }
+        if (!backtrack()) throw new SearchExhaustedException();
     }
     
     public void resetAll(){
@@ -69,4 +86,6 @@ public abstract class Pred {
             v.reset();
         }
     }
+    
+
 }

@@ -73,7 +73,7 @@ public class ASTNode {
             if (inNode.type == NodeType.Unparsed ){
                 NumberedString ns = inNode.nstring;                            
                 iloop:for (i=ns.start; i<ns.end; ){
-//                    if (i == 5){ // for debugging only
+//                    if (it == 5){ // for debugging only
 //                        System.out.println("breakpoint");
 //                    }
                     if (terminals != null){
@@ -128,7 +128,7 @@ public class ASTNode {
                         parent.children.add(terminals);
                     }
                     i++;
-                } // for i         
+                } // for it         
             } // type == unparsed   
             else if (inNode.type == NodeType.Apostrophe || inNode.type == NodeType.Quote){
                 if (terminals != null){
@@ -153,8 +153,8 @@ public class ASTNode {
 		for (i=0; i<ns.end; i++){
 
 //			for (CharPair qp:config.quotes.charPairs){
-//				if (ns.startsWith(qp.start, i)) {
-//					start = i;
+//				if (ns.startsWith(qp.start, it)) {
+//					start = it;
 //					nodeType = qp.nodeType;
 //					childString = new NumberedString(ns.charlist, start,end);
 //					child = new ASTNode(ns, p, nodeType, config)
@@ -209,7 +209,7 @@ public class ASTNode {
 					state = ParserState.Apostrophe;
 				}
 			}			
-		} // end parse cycle "for i"
+		} // end parse cycle "for it"
 		if (state == ParserState.TopLevel){
 			end = i;
 			child = new ASTNode(new NumberedString(nstring, start, end),this,NodeType.Unparsed,config);
