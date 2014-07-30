@@ -1,6 +1,7 @@
 package jparser;
 
 import jparser.numbered.NumberedString;
+import jparser.util.XMLPrinter;
 
 
 
@@ -26,10 +27,15 @@ public class JParse {
 		
 //		ASTNode root = parse("beginxend;[a]");
 		
-		ASTNode root = parse("beginxend;[[b+c]a]");
+		ASTNode root = parse("begin x end;[[b+c]a]");
 	    
 		System.out.print(root.toString());
 		System.out.println("||");
+		
+		XMLPrinter pr = new XMLPrinter();
+		StringBuilder sb = new StringBuilder();
+		pr.print(root, sb);
+		System.out.println(sb);
 	}
 
 	

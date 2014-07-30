@@ -23,10 +23,10 @@ enum ParserState {
  */
 public class ASTNode {
 	public List<ASTNode> children = new ArrayList<ASTNode>(5);
-	ASTNode parent;
-	NumberedString nstring;
-	NodeType type;
-	BlockDelimiterType delimiter = null;
+	public ASTNode parent;
+	public NumberedString nstring;
+	public NodeType type;
+	public BlockDelimiterType delimiter = null;
 	
 
 	public ASTNode(NumberedString ns, ASTNode p, NodeType t,Config config) {
