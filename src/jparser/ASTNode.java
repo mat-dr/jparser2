@@ -23,15 +23,15 @@ enum ParserState {
  */
 public class ASTNode {
 	public List<ASTNode> children = new ArrayList<ASTNode>(5);
-	public ASTNode parent;
+//	public ASTNode parent;
 	public NumberedString nstring;
 	public NodeType type;
 	public BlockDelimiterType delimiter = null;
 	
 
-	public ASTNode(NumberedString ns, ASTNode p, NodeType t,Config config) {
+	public ASTNode(NumberedString ns, NodeType t,Config config) {
 		nstring = ns;
-		parent = p;
+	//	parent = p;
 		type = t;
 		
 		
@@ -64,7 +64,7 @@ public class ASTNode {
 	
     private static ASTNode getParens(ASTNode root, ASTNode outNode,  Config config) {
         Stack<BlockDelimiterInstance> stack = new Stack<BlockDelimiterInstance>();
-        ASTNode parent = new ASTNode(root.nstring, null, NodeType.Complex, config);
+        ASTNode parent = new ASTNode(root.nstring,  NodeType.Complex, config);
         ASTNode result = parent;        
 //        ASTNode terminals = new ASTNode(root.nstring, parent, NodeType.Atom, config);
         ASTNode terminals = null;
@@ -89,7 +89,7 @@ public class ASTNode {
                             bdi.node = parent;
                             stack.push(bdi);
                             NumberedString ns2 = new NumberedString(ns, i, ns.end);
-                            ASTNode newBlock = new ASTNode(ns2, parent, NodeType.Block, config);
+                            ASTNode newBlock = new ASTNode(ns2, NodeType.Block, config);
                             newBlock.delimiter = delimiter;
                             parent.children.add(newBlock);
                             parent = newBlock;
@@ -114,7 +114,7 @@ public class ASTNode {
                                 parent.nstring.end = i;
                                 //***
                                 NumberedString ns2 = new NumberedString(ns, bdi.start, bdi.end);
-                                ASTNode childNode = new ASTNode(ns2, parent, NodeType.Complex, config);
+                                ASTNode childNode = new ASTNode(ns2,  NodeType.Complex, config);
                                 parent = bdi.node;
 //                                parent.children.add(childNode);
                                 continue iloop;
@@ -124,7 +124,7 @@ public class ASTNode {
                     } // for BlockDelimiter
                     if (terminals == null){  // not delimiter char add to terminals
                         NumberedString ns2 = new NumberedString(ns, i, ns.end);
-                        terminals = new ASTNode(ns2, parent, NodeType.Atom, config);
+                        terminals = new ASTNode(ns2,  NodeType.Atom, config);
                         parent.children.add(terminals);
                     }
                     i++;
@@ -165,7 +165,7 @@ public class ASTNode {
 				if (state == ParserState.Quote && ns.startsWith("\"", i)){
 					if (!prevBackslash){
 						end=i;
-						child = new ASTNode(new NumberedString(nstring, start+1, end),this,NodeType.Quote,config);						
+						child = new ASTNode(new NumberedString(nstring, start+1, end),NodeType.Quote,config);						
 						children.add(child);
 						
 						state = ParserState.TopLevel;
@@ -176,7 +176,7 @@ public class ASTNode {
 				if (state == ParserState.Apostrophe && ns.startsWith("'", i)){
 					if (!prevBackslash){
 						end=i;
-						child = new ASTNode(new NumberedString(nstring, start+1, end),this,NodeType.Apostrophe,config);						
+						child = new ASTNode(new NumberedString(nstring, start+1, end),NodeType.Apostrophe,config);						
 						children.add(child);
 						
 						state = ParserState.TopLevel;
@@ -194,7 +194,7 @@ public class ASTNode {
 			if (state == ParserState.TopLevel){
 				if (ns.startsWith("\"", i) && !prevBackslash) {
 					end = i;
-					child = new ASTNode(new NumberedString(nstring, start, end),this,NodeType.Unparsed,config); 
+					child = new ASTNode(new NumberedString(nstring, start, end),NodeType.Unparsed,config); 
 					children.add(child);
 					
 					start = i;
@@ -202,7 +202,7 @@ public class ASTNode {
 				}	
 				if (ns.startsWith("'", i) && !prevBackslash){
 					end = i;
-					child = new ASTNode(new NumberedString(nstring, start, end),this,NodeType.Unparsed,config);
+					child = new ASTNode(new NumberedString(nstring, start, end),NodeType.Unparsed,config);
 					children.add(child);
 					
 					start = i;
@@ -212,7 +212,7 @@ public class ASTNode {
 		} // end parse cycle "for it"
 		if (state == ParserState.TopLevel){
 			end = i;
-			child = new ASTNode(new NumberedString(nstring, start, end),this,NodeType.Unparsed,config);
+			child = new ASTNode(new NumberedString(nstring, start, end),NodeType.Unparsed,config);
 			children.add(child);
 		} else if (state == ParserState.Quote) {
 			System.out.println("unclosed quote");
@@ -279,9 +279,9 @@ public class ASTNode {
 
 
 	public static ASTNode parse(NumberedString numberedString, Config config) {
-		ASTNode root = new ASTNode(numberedString, null, NodeType.Complex, config);
+		ASTNode root = new ASTNode(numberedString,  NodeType.Complex, config);
 		root.getQuotes(numberedString,config);
-		ASTNode afterParen = new ASTNode(numberedString, null, NodeType.Complex, config);
+		ASTNode afterParen = new ASTNode(numberedString,  NodeType.Complex, config);
 		afterParen = getParens(root,afterParen, config);
 		return afterParen;
 	}
