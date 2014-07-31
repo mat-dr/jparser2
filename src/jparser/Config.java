@@ -14,10 +14,10 @@ public class Config {
 	 * shouldnt have CharPairs with same starting member
 	 *
 	 */
-	public class PriorityClass {
+	public static class PriorityClass {
 		public List<BlockDelimiterType> elements = new LinkedList<Config.BlockDelimiterType>();
 	}
-	public class BlockDelimiterType {
+	public static class BlockDelimiterType {
 		public String startLiteral;
 		public String endLiteral;
 		public String name;
@@ -25,6 +25,17 @@ public class Config {
 		@Override
 		public String toString() {		 
 		    return super.toString();
+		}
+		@Override
+		public boolean equals(Object ob) {
+		    try {
+		        BlockDelimiterType o = (BlockDelimiterType) ob;
+		        if (name == null && o.name == null) return true;
+		        if (name.equals(o.name)) return true;
+		    } catch(ClassCastException e) {
+		        return false;
+		    }
+		    return false;
 		}
 	}
 	

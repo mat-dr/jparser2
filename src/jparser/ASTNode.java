@@ -1,4 +1,5 @@
 package jparser;
+import java.io.Serializable;
 import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
@@ -21,7 +22,8 @@ enum ParserState {
 /*
  * children == null xor String == null
  */
-public class ASTNode {
+/** Abstract syntax tree node. */
+public class ASTNode implements Cloneable, Serializable {
 	public List<ASTNode> children = new ArrayList<ASTNode>(5);
 //	public ASTNode parent;
 	public NumberedString nstring;
@@ -285,7 +287,5 @@ public class ASTNode {
 		afterParen = getParens(root,afterParen, config);
 		return afterParen;
 	}
-
-
 	
 }

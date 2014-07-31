@@ -7,7 +7,7 @@ import jparser.util.XMLPrinter;
 
 public class JParse {
 	
-	private static ASTNode parse(String s) {
+	public static ASTNode parse(String s) {
 		
 //		return new ASTNode(new NumberedString(s), null, NodeType.Complex,new Config());
 		return ASTNode.parse(new NumberedString(s),new Config());

@@ -26,8 +26,9 @@ public class XMLPrinter {
     protected void printBlock(ASTNode node, StringBuilder result) {
         result.append("<");
         result.append("block");
-        result.append(" b=\""+escape(node.delimiter.startLiteral)+"\"");
-        result.append(" e=\""+escape(node.delimiter.endLiteral)+"\"");
+//        result.append(" b=\""+escape(node.delimiter.startLiteral)+"\"");
+//        result.append(" e=\""+escape(node.delimiter.endLiteral)+"\"");
+        result.append(" name=\""+escape(node.delimiter.name)+"\"");
         result.append(">");
         for(ASTNode child : node.children) {
             print(child, result);
