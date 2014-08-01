@@ -1,4 +1,4 @@
-package prologlike;
+package patternmatch;
 
 import sun.org.mozilla.javascript.internal.ast.AstNode;
 import jparser.ASTNode;
