@@ -287,5 +287,10 @@ public class ASTNode implements Cloneable, Serializable {
 		afterParen = getParens(root,afterParen, config);
 		return afterParen;
 	}
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+	    return super.clone();
+	    
+	}
 	
 }
