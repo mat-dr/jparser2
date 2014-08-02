@@ -27,7 +27,9 @@ public class JParse {
 		
 //		ASTNode root = parse("beginxend;[a]");
 		
-		ASTNode root = parse("begin x end;[[b+c]a]");
+//		ASTNode root = parse("begin x end;[[b+c]a]");
+	    
+	    ASTNode root = parse("begin *wild* end;[[b+c]a]");
 	    
 		System.out.print(root.toString());
 		System.out.println("||");
