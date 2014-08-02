@@ -9,6 +9,8 @@ import jparser.numbered.NumberedChar;
 import jparser.numbered.NumberedString;
 
 public class Config {
+    /**Wildcards can't be escaped (now). */
+    public String wildcard = "*wild*";
 	/**
 	 * 
 	 * shouldnt have CharPairs with same starting member
