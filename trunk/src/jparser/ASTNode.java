@@ -255,11 +255,14 @@ public class ASTNode implements Cloneable, Serializable {
 
 	                    // after wildcard
 	                    start = end;
+	                    i = end;
 	                }
 	            }
 	            end = ns.end;
 	            if (start != ns.start && start != end) { 
-                    newNodes.add(new ASTNode(new NumberedString(ns, start, end), NodeType.Atom, config));                    
+                    newNodes.add(new ASTNode(new NumberedString(ns, start, end), NodeType.Atom, config));
+	            }
+	            if (newNodes.size()>0) {
                     root.children.remove(childIndex);
                     root.children.addAll(childIndex, newNodes);
 	            }         	            
