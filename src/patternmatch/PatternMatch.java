@@ -37,7 +37,7 @@ public class PatternMatch {
     }
     
     public static void main(String[] args) {
-        ASTNode pattern = JParse.parse("[b+c]").children.get(0);
+        ASTNode pattern = JParse.parsePattern("[[*wild*]*wild*]").children.get(0);
         ASTNode root = JParse.parse("begin x end;[[b+c]a]");
         
         HashMap<ASTNode, ASTNode> result = match(pattern, root);
