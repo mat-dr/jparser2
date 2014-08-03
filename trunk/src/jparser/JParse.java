@@ -13,6 +13,10 @@ public class JParse {
 		return ASTNode.parse(new NumberedString(s),new Config());
 	}
 	
+	   public static ASTNode parsePattern(String s) {
+	       return ASTNode.parsePattern(new NumberedString(s),new Config());
+	   }
+	
 	public static void main(String[] args) {
 //		ASTNode root = parse("('xy',\"b\",c,(asas,asd,\"w\\\"we\"))");
 //		ASTNode root = parse("[1,2] ('xy',\"b\",c,(asas,asd,\"w\\\"we\"))");
@@ -29,10 +33,11 @@ public class JParse {
 		
 //		ASTNode root = parse("begin x end;[[b+c]a]");
 	    
-	    ASTNode root = parse("begin *wild* end;[[b+c]a]");
+//	    ASTNode root = parse("begin *wild* end;[[b+c]a]");
+	    ASTNode root = parsePattern("[[ *wild* ] *wild* ]");
 	    
-		System.out.print(root.toString());
-		System.out.println("||");
+		System.out.println(root.toString());
+		
 		
 		XMLPrinter pr = new XMLPrinter();
 		StringBuilder sb = new StringBuilder();

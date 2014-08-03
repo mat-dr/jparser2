@@ -303,27 +303,28 @@ public class ASTNode implements Cloneable, Serializable {
 			for (ASTNode node:children){
 				node.prettyString(sb, indent+indinc);
 			}
+			sb.append("end-Complex");
 		} else	
 		if (type == NodeType.Block){		    
 		    sb.append(delimiter.startLiteral+"\n");
             for (ASTNode node:children){
                 node.prettyString(sb, indent+indinc);
             }
-            indent(sb,indent);
-            sb.append('\n');
+//            indent(sb,indent);
+//            sb.append('\n');
             indent(sb,indent);
             sb.append(delimiter.endLiteral);
-            sb.append('\n');
+//            sb.append('\n');
 		} else 
         if (type == NodeType.Wildcard){
-            sb.append('\n');
-            indent(sb,indent);
+//            sb.append('\n');
+//            indent(sb,indent);
             sb.append(config.wildcard);
-            sb.append('\n');
+//            sb.append('\n');
         } else {
             throw new RuntimeException("pretty-print not defined for this nodetype");
         }
-//		sb.append('\n');
+		sb.append('\n');
 		return sb;
 	}
 	
@@ -338,9 +339,18 @@ public class ASTNode implements Cloneable, Serializable {
 		root.getQuotes(numberedString,config);
 		ASTNode afterParen = new ASTNode(numberedString,  NodeType.Complex, config);
 		afterParen = getParens(root,afterParen, config);
-		getWildcards(afterParen, config);
 		return afterParen;
 	}
+	
+    public static ASTNode parsePattern(NumberedString numberedString, Config config) {
+        ASTNode root = new ASTNode(numberedString,  NodeType.Complex, config);
+        root.getQuotes(numberedString,config);
+        ASTNode afterParen = new ASTNode(numberedString,  NodeType.Complex, config);
+        afterParen = getParens(root,afterParen, config);
+        getWildcards(afterParen, config);
+        return afterParen;
+    }	
+	
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 	    return super.clone();
