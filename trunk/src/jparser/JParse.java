@@ -7,15 +7,16 @@ import jparser.util.XMLPrinter;
 
 public class JParse {
 	
+    /** Helper method for parsing. For custom block-delimiter definitions see Config. */ 
 	public static ASTNode parse(String s) {
 		
 //		return new ASTNode(new NumberedString(s), null, NodeType.Complex,new Config());
 		return ASTNode.parse(new NumberedString(s),new Config());
 	}
-	
-	   public static ASTNode parsePattern(String s) {
-	       return ASTNode.parsePattern(new NumberedString(s),new Config());
-	   }
+	/** Helper method to parse patterns. The wildcard identifier is defined in Config. */	
+   public static ASTNode parsePattern(String s) {
+       return ASTNode.parsePattern(new NumberedString(s),new Config());
+   }
 	
 	public static void main(String[] args) {
 //		ASTNode root = parse("('xy',\"b\",c,(asas,asd,\"w\\\"we\"))");
@@ -33,8 +34,9 @@ public class JParse {
 		
 //		ASTNode root = parse("begin x end;[[b+c]a]");
 	    
-	    ASTNode root = parse("begin *wild* end;[[b+c]a]");
-//	    ASTNode root = parsePattern("[[*wild*]*wild*]");
+//	    ASTNode root = parse("begin *wild* end;[[b+c]a]");
+	    ASTNode root = parsePattern("[[*wild*]*wild*]");
+//	    ASTNode root = parsePattern("begin *wild* end;[[b+c]a]");
 	    
 		System.out.println(root.toString());
 		
