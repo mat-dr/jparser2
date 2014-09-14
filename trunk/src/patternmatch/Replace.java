@@ -57,17 +57,18 @@ public class Replace {
             for (int j=0; j<pattern.children.size(); j++) {
                 // todo proper equals
                 //if (!root.children.get(i).equals(pattern.children.get(j))) break;
-                if (!Unifier.equalsIgnoringNStr(root.children.get(j),pattern.children.get(j))) break;
+                if (!Unifier.equalsIgnoringNStr(root.children.get(i+j),pattern.children.get(j))) break;
                 // pattern matches
-                if (j == pattern.children.size()-1) return i;
+                if (j == pattern.children.size()-1) 
+                    return i;
             }            
         }                
         return -1;
     }
 
     public static void main(String[] args) {
-        ASTNode root = JParse.parse("begin *wild* end;[[b+c]a]");
-        ASTNode pattern = JParse.parse("[b+c]a");
+        ASTNode root = JParse.parse("begin [b+c] *wild*  end;[[b+c]a]");
+        ASTNode pattern = JParse.parse("[b+c]");
         ASTNode replacewith = JParse.parse("D");
         
         Replace replace = new Replace();
