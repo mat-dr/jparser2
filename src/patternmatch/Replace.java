@@ -67,8 +67,9 @@ public class Replace {
     }
 
     public static void main(String[] args) {
-        ASTNode root = JParse.parse("begin [b+c] *wild*  end;[[b+c]a]");
-        ASTNode pattern = JParse.parse("[b+c]");
+        ASTNode root = JParse.parse("begin *wild*  end;[[b+c]a]");
+        System.out.println(root);
+        ASTNode pattern = JParse.parse("[b+c]a");
         ASTNode replacewith = JParse.parse("D");
         
         Replace replace = new Replace();
