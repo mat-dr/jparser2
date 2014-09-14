@@ -5,6 +5,7 @@ import jparser.ASTNode;
 import jparser.Config;
 import jparser.JParse;
 import jparser.NodeType;
+import jparser.Config.BlockDelimiterType;
 // TODO implement deep cloning and unification
 public class Unifier {
     /** The left one contains wildcard(s), the right one is ground. */
@@ -34,12 +35,12 @@ public class Unifier {
         }
         return true;
     }
-    
+    /** Equals check, no unifying (wildcards aren't equal with each other). Ignoring the line and character numbers in number-strings. */
     public static boolean equalsIgnoringNStr(ASTNode node1,ASTNode node2) {
         if (node1.type == NodeType.Wildcard) return false;
         if (! (
                 node1.type == node2.type && 
-                node1.delimiter == node2.delimiter &&
+                BlockDelimiterType.equals(node1.delimiter, node2.delimiter) &&
                 node1.nstring.toString().equals(node2.nstring.toString())
                 )
             )

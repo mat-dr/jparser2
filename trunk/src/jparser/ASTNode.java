@@ -281,51 +281,46 @@ public class ASTNode implements Cloneable, Serializable {
 	
 	public StringBuilder prettyString(StringBuilder sb,int indent) {
 	    final int indinc = 3;
-	    indent(sb,indent);
-		if (type == NodeType.Unparsed){
-		    sb.append("#\"");
-			sb.append(nstring.toString());
-			sb.append("\"");
-		} else
-		if (type == NodeType.Atom){
-		    sb.append("@\"");
+        indent(sb, indent);
+        if (type == NodeType.Unparsed) {
+            sb.append("#\"");
             sb.append(nstring.toString());
             sb.append("\"");
-		} else
-		if (type == NodeType.Quote){
-			sb.append('"');
-			sb.append(nstring.toString());
-			sb.append('"');
-		} else
-		if (type == NodeType.Apostrophe){
-			sb.append('\'');
-			sb.append(nstring.toString());
-			sb.append('\'');
-		} else			
-		if (type == NodeType.Complex){
-			for (ASTNode node:children){
-				node.prettyString(sb, indent+indinc);
-			}
-			sb.append("end-Complex");
-		} else	
-		if (type == NodeType.Block){		    
-		    sb.append(delimiter.startLiteral+"\n");
-            for (ASTNode node:children){
-                node.prettyString(sb, indent+indinc);
+        } else if (type == NodeType.Atom) {
+            sb.append("@\"");
+            sb.append(nstring.toString());
+            sb.append("\"");
+        } else if (type == NodeType.Quote) {
+            sb.append('"');
+            sb.append(nstring.toString());
+            sb.append('"');
+        } else if (type == NodeType.Apostrophe) {
+            sb.append('\'');
+            sb.append(nstring.toString());
+            sb.append('\'');
+        } else if (type == NodeType.Complex) {
+            for (ASTNode node : children) {
+                node.prettyString(sb, indent + indinc);
             }
-//            indent(sb,indent);
-//            sb.append('\n');
-            indent(sb,indent);
+            sb.append("end-Complex");
+        } else if (type == NodeType.Block) {
+            sb.append(delimiter.startLiteral + "\n");
+            for (ASTNode node : children) {
+                node.prettyString(sb, indent + indinc);
+            }
+            // indent(sb,indent);
+            // sb.append('\n');
+            indent(sb, indent);
             sb.append(delimiter.endLiteral);
-//            sb.append('\n');
-		} else 
-        if (type == NodeType.Wildcard){
-//            sb.append('\n');
-//            indent(sb,indent);
+            // sb.append('\n');
+        } else if (type == NodeType.Wildcard) {
+            // sb.append('\n');
+            // indent(sb,indent);
             sb.append(config.wildcard);
-//            sb.append('\n');
+            // sb.append('\n');
         } else {
-            throw new RuntimeException("pretty-print not defined for this nodetype");
+            throw new RuntimeException(
+                    "pretty-print not defined for this nodetype:" + type);
         }
 		sb.append('\n');
 		return sb;
