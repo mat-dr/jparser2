@@ -56,23 +56,31 @@ public class XMLPrinter {
         result.append(" name=\""+escape(node.nstring.toString())+"\"");        
         result.append("/>");
     }
+    private void printWildcard(ASTNode node, StringBuilder result) {
+        result.append("<");
+        result.append("wildcard");        
+        result.append("/>");
+        
+    }
+
     
     public void print(ASTNode node, StringBuilder result) {
         if (node.type == NodeType.Complex) {
             printComplex(node, result);
-        }
-        if (node.type == NodeType.Block) {
+        } else if (node.type == NodeType.Block) {
             printBlock(node, result);
-        }
-        if (node.type == NodeType.Atom) {
+        } else if (node.type == NodeType.Atom) {
             printAtom(node, result);
-        }
-        if (node.type == NodeType.Quote) {
+        } else if (node.type == NodeType.Quote) {
             printQuote(node, result);
-        }
-        if (node.type == NodeType.Apostrophe) {
+        } else if (node.type == NodeType.Apostrophe) {
             printApostrophe(node, result);
-        }        
+        } else if (node.type == NodeType.Wildcard) {
+            printWildcard(node, result);
+        } else {
+            throw new RuntimeException("unknown node type in xml printer:"
+                    + node.type);
+        }
         
     }
 

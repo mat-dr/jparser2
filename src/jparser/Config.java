@@ -28,6 +28,11 @@ public class Config {
 		public String toString() {		 
 		    return super.toString();
 		}
+		/** To avoid Nullpointer exceptions. */
+		public static boolean equals(BlockDelimiterType d1, BlockDelimiterType d2) {
+		    if (d1 == null && d2 == null) return true;
+		    return d1.equals(d2);
+		}
 		@Override
 		public boolean equals(Object ob) {
 		    try {

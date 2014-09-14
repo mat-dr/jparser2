@@ -33,8 +33,8 @@ public class JParse {
 		
 //		ASTNode root = parse("begin x end;[[b+c]a]");
 	    
-//	    ASTNode root = parse("begin *wild* end;[[b+c]a]");
-	    ASTNode root = parsePattern("[[*wild*]*wild*]");
+	    ASTNode root = parse("begin *wild* end;[[b+c]a]");
+//	    ASTNode root = parsePattern("[[*wild*]*wild*]");
 	    
 		System.out.println(root.toString());
 		
