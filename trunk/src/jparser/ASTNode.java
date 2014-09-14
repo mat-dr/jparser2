@@ -265,6 +265,7 @@ public class ASTNode implements Cloneable, Serializable {
 	            if (newNodes.size()>0) {
                     root.children.remove(childIndex);
                     root.children.addAll(childIndex, newNodes);
+                    newNodes.clear();
 	            }         	            
 	        } else if (child.type == NodeType.Block) {
 	            getWildcards(child, config);
