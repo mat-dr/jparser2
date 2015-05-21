@@ -1,6 +1,6 @@
 package patternmatch;
 
-import sun.org.mozilla.javascript.internal.ast.AstNode;
+
 import jparser.ASTNode;
 import jparser.Config;
 import jparser.JParse;
