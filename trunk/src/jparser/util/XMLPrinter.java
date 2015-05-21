@@ -4,7 +4,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
 
 import jparser.ASTNode;
 import jparser.NodeType;
-import sun.org.mozilla.javascript.internal.ast.AstNode;
+
 
 public class XMLPrinter {
     public static final String atomTag="atom";  

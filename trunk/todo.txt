@@ -1,0 +1,3 @@
+
+- Make memory useage more efficient by not storing the character ID for every character. 
+	(At the moment it makes debugging much more convenient.)   
