@@ -7,8 +7,9 @@ import java.util.List;
 import java.util.Set;
 
 
+
+import example.JParse;
 import jparser.ASTNode;
-import jparser.JParse;
 
 public class PatternMatch {
     /** <u>result format: </u><br> 
@@ -44,8 +45,8 @@ public class PatternMatch {
         for(ASTNode node: ks) {
             System.out.println("*** "+i+" ***");
             System.out.println(node);
-        }
-        
+            i++;
+        }        
         
     }
 

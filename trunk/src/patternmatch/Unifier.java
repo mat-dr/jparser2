@@ -1,9 +1,9 @@
 package patternmatch;
 
 
+import example.JParse;
 import jparser.ASTNode;
 import jparser.Config;
-import jparser.JParse;
 import jparser.NodeType;
 import jparser.Config.BlockDelimiterType;
 // TODO implement deep cloning and unification

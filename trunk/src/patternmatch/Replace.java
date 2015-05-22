@@ -3,9 +3,9 @@ package patternmatch;
 import java.util.ArrayList;
 import java.util.List;
 
+import example.JParse;
 import jparser.ASTNode;
 import jparser.Config;
-import jparser.JParse;
 import jparser.NodeType;
 import jparser.numbered.NumberedString;
 
