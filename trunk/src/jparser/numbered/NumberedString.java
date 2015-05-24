@@ -3,12 +3,17 @@ package jparser.numbered;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class NumberedString {
+	/** Normally this is shared by all instances that came from the same AST. */
 	public List<NumberedChar> charlist;
 	public int start;
 	public int end=-1;
+	/** Normally this is shared by all instances that came from the same AST. */
 	public CharSequence cseq;
+	/** Normally this is shared by all instances that came from the same AST. */
 	private ArrayList<Integer> lines = new ArrayList<Integer>();
 	
 	/**
@@ -104,9 +109,83 @@ public class NumberedString {
 		return (cseq.subSequence(start, end).toString());
 	}
 	
+	protected boolean isWhiteSpace(char c){
+		if (c==' ' || c=='\n' || c=='\t') return true;
+		return false;
+	}
+	
+	public void trim(){
+		int start2 = start;
+		int end2 = end;
+		for (int i=start; i<end; i++){
+			if (!isWhiteSpace(cseq.charAt(i))){
+				start2=i;
+				break;				
+			}
+		}
+		for (int i=end-1; i>start; i--){
+			if (!isWhiteSpace(cseq.charAt(i))){
+				end2=i+1;
+				break;				
+			}
+		}
+		start = start2;
+		end = end2;
+	}
+	
+	NumberedString[] splitAt(int splitAt){
+		NumberedString ns1 = new NumberedString(this, start, splitAt);
+		NumberedString ns2 = new NumberedString(this, splitAt, end);
+		NumberedString[] result = {ns1,ns2};
+		return result;
+	}
+	
+	public NumberedString[] split(Pattern pattern){
+		int offset = start;
+		int cursor = 0;
+		int end2 = start;
+		List<NumberedString> result = new LinkedList<NumberedString>();
+		Matcher matcher = pattern.matcher(toString());
+		
+		while (matcher.find()) {
+			if (matcher.start() > cursor){
+				result.add(new NumberedString(this, offset+cursor, offset+matcher.start()));
+				cursor = matcher.end();
+			} else if (matcher.start() == cursor){
+				// string starts with delimiter pattern				
+				cursor = matcher.end();
+			}			
+		}
+		if (offset + cursor < end){
+			result.add(new NumberedString(this, offset+cursor, end));
+		}
+		
+		return result.toArray(new NumberedString[0]);
+	}
+	
+	public int getLength(){
+		return end-start;
+	}
+	
+	public boolean isEmpty(){
+		return (getLength()==0);
+	}
+	
+	
 	public static void main(String[] args) {
-		NumberedString ns = new NumberedString("abc123");
-		ns.start = 2;
-		System.out.println(ns);
+		NumberedString ns = new NumberedString("  abc 1   23  ");
+		//ns.start = 2;
+		//ns.trim();
+		//ns = ns.biteOffFromStart("ab", 0);
+		//ns = ns.splitAt(2)[1];
+		Pattern p = Pattern.compile("\\s");
+		Object[] os = ns.split(p);
+		int i=0;
+		for(Object o:os){
+			System.out.println(i+": '"+o+"'");
+			i++;
+		}
+		System.out.println("'"+ns+"'");
+		
 	}
 }

@@ -65,7 +65,7 @@ public class XMLPrinter {
 
     
     public void print(ASTNode node, StringBuilder result) {
-        if (node.type == NodeType.Complex) {
+        if (node.type == NodeType.Root) {
             printComplex(node, result);
         } else if (node.type == NodeType.Block) {
             printBlock(node, result);
