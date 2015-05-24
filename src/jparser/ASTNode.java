@@ -28,6 +28,8 @@ public class ASTNode implements Cloneable, Serializable {
 //	public ASTNode parent;
 	public NumberedString nstring;
 	public NodeType type;
+	// not null if type==Custom
+	public Enum customType = null;
 	public BlockDelimiterType delimiter = null;
     public Config config;
 	
@@ -69,7 +71,7 @@ public class ASTNode implements Cloneable, Serializable {
 	/** Get parentheses, brackets and other block-type nodes. */ 
     private static ASTNode getParens(ASTNode root, ASTNode outNode,  Config config) {
         Stack<BlockDelimiterInstance> stack = new Stack<BlockDelimiterInstance>();
-        ASTNode parent = new ASTNode(root.nstring,  NodeType.Complex, config);
+        ASTNode parent = new ASTNode(root.nstring,  NodeType.Root, config);
         ASTNode result = parent;        
 //        ASTNode terminals = new ASTNode(root.nstring, parent, NodeType.Atom, config);
         ASTNode terminals = null;
@@ -121,7 +123,7 @@ public class ASTNode implements Cloneable, Serializable {
                                 parent.nstring.end = i;
                                 //***
                                 NumberedString ns2 = new NumberedString(ns, bdi.start, bdi.end);
-                                ASTNode childNode = new ASTNode(ns2,  NodeType.Complex, config);
+                                ASTNode childNode = new ASTNode(ns2,  NodeType.Root, config);
                                 parent = bdi.node;
 //                                parent.children.add(childNode);
                                 continue iloop;
@@ -299,11 +301,11 @@ public class ASTNode implements Cloneable, Serializable {
             sb.append('\'');
             sb.append(nstring.toString());
             sb.append('\'');
-        } else if (type == NodeType.Complex) {
+        } else if (type == NodeType.Root) {
             for (ASTNode node : children) {
                 node.prettyString(sb, indent + indinc);
             }
-            sb.append("end-Complex");
+            sb.append("end-Root");
         } else if (type == NodeType.Block) {
             sb.append(delimiter.startLiteral + "\n");
             for (ASTNode node : children) {
@@ -334,17 +336,17 @@ public class ASTNode implements Cloneable, Serializable {
 
 
 	public static ASTNode parse(NumberedString numberedString, Config config) {
-		ASTNode root = new ASTNode(numberedString,  NodeType.Complex, config);
+		ASTNode root = new ASTNode(numberedString,  NodeType.Root, config);
 		root.getQuotes(numberedString,config);
-		ASTNode afterParen = new ASTNode(numberedString,  NodeType.Complex, config);
+		ASTNode afterParen = new ASTNode(numberedString,  NodeType.Root, config);
 		afterParen = getParens(root,afterParen, config);
 		return afterParen;
 	}
 	
     public static ASTNode parsePattern(NumberedString numberedString, Config config) {
-        ASTNode root = new ASTNode(numberedString,  NodeType.Complex, config);
+        ASTNode root = new ASTNode(numberedString,  NodeType.Root, config);
         root.getQuotes(numberedString,config);
-        ASTNode afterParen = new ASTNode(numberedString,  NodeType.Complex, config);
+        ASTNode afterParen = new ASTNode(numberedString,  NodeType.Root, config);
         afterParen = getParens(root,afterParen, config);
         getWildcards(afterParen, config);
         return afterParen;

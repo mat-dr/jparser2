@@ -27,7 +27,7 @@ public class PatternMatch {
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
         }
-        if (Unifier.unifyLefty(patt2, tree)) {
+        if (Unifier.unifyLeft(patt2, tree)) {
             result.put(tree, patt2);
         }
         for (ASTNode child:tree.children) {

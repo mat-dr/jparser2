@@ -27,7 +27,7 @@ public class Replace {
         } else {
             for (int childIndex = 0; childIndex < root.children.size(); childIndex++) {
                 ASTNode child = root.children.get(childIndex);
-                if (child.type == NodeType.Complex || child.type == NodeType.Block)
+                if (child.type == NodeType.Root || child.type == NodeType.Block)
                     replace(child);
             }
         }
@@ -44,7 +44,7 @@ public class Replace {
     /** Only deals with matching Complex type nodes. I.e. matching two nodeslists (their children) against each other. */
     private static int complexMatch(ASTNode root, ASTNode pattern) {
        // if (pattern.type != pattern.type.Complex) throw new RuntimeException("pattern type must be: complex");
-        if (! (root.type == pattern.type.Complex || root.type == NodeType.Block )) throw new RuntimeException("root type must be: complex or block");
+        if (! (root.type == pattern.type.Root || root.type == NodeType.Block )) throw new RuntimeException("root type must be: complex or block");
         
         // pattern shouldn't be longer than the node-list to match against 
         if (root.children.size() < pattern.children.size()) return -1;

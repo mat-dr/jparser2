@@ -3,6 +3,7 @@ package example;
 import jparser.ASTNode;
 import jparser.Config;
 import jparser.numbered.NumberedString;
+import jparser.util.RemoveWhiteSpace;
 import jparser.util.XMLPrinter;
 
 
@@ -39,14 +40,17 @@ public class JParse {
 //	    ASTNode root = parse("begin *wild* end;[[b+c]a]");
 //	    ASTNode root = parsePattern("[[*wild*]*wild*]");
 //	    ASTNode root = parsePattern("begin *wild* end;[[b+c]a]");
-	    
+
+		System.out.println(root.toString());
+		RemoveWhiteSpace removeWhiteSpace = new RemoveWhiteSpace();
+		removeWhiteSpace.iterate(root);
 		System.out.println(root.toString());
 		
 		
-		XMLPrinter pr = new XMLPrinter();
-		StringBuilder sb = new StringBuilder();
-		pr.print(root, sb);
-		System.out.println(sb);
+//		XMLPrinter pr = new XMLPrinter();
+//		StringBuilder sb = new StringBuilder();
+//		pr.print(root, sb);
+//		System.out.println(sb);
 	}
 
 	

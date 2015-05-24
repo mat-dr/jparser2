@@ -1,5 +1,5 @@
 package jparser;
 
 public enum NodeType {
-	Complex,Block,Atom,Quote,Apostrophe,Unparsed,Wildcard
+	Root,Block,Atom,Quote,Apostrophe,Unparsed,Wildcard,Custom
 }

@@ -16,4 +16,8 @@ public class NumberedChar {
 	    // TODO Auto-generated method stub
 	    return ""+character;
 	}
+	public boolean charEquals(char c){
+		if (character == c) return true;
+		else return false;
+	}
 }

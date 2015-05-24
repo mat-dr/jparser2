@@ -6,10 +6,11 @@ import jparser.ASTNode;
 import jparser.Config;
 import jparser.NodeType;
 import jparser.Config.BlockDelimiterType;
-// TODO implement deep cloning and unification
+import jparser.util.Snippets;
+
 public class Unifier {
     /** The left one contains wildcard(s), the right one is ground. */
-    public static boolean unifyLefty(ASTNode node1,ASTNode node2) {
+    public static boolean unifyLeft(ASTNode node1,ASTNode node2) {
         if (node1.type==NodeType.Wildcard) {
             node1.type = node2.type;
             node1.children = node2.children;
@@ -29,7 +30,7 @@ public class Unifier {
                 )
                 return false;
             for(int i=0; i<node1.children.size(); i++) {
-                if (!unifyLefty(node1.children.get(i), node2.children.get(i)))
+                if (!unifyLeft(node1.children.get(i), node2.children.get(i)))
                     return false;
             }            
         }
@@ -53,7 +54,7 @@ public class Unifier {
     }
     
     public static ASTNode deepCopy(ASTNode node) {
-        ASTNode result = null;
+        ASTNode result = Snippets.deepCopy(node);
         return result;
     }
     public static void main(String[] args) {
@@ -63,10 +64,12 @@ public class Unifier {
         System.out.println(pattern);
         
         pattern.children.add(0,new ASTNode(null, NodeType.Wildcard, new Config()));
-        unifyLefty(pattern, root);
+        System.out.println(pattern);
+        unifyLeft(pattern, root);
         
         System.out.println("****");
         System.out.println(pattern);
+        System.out.println(pattern.children.get(0));
         
     }
 }
