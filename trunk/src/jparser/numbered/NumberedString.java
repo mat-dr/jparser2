@@ -95,6 +95,8 @@ public class NumberedString {
 		}
 	}
 	
+	/** Same as startsWith but also removes the matching portion. 
+	 * Doesn't modify current instance but returns what's left. */ 
 	public NumberedString biteOffFromStart(CharSequence s, int startCursor){
 	    if (startsWith(s, startCursor)) {
 	        NumberedString result = new NumberedString(this, startCursor+s.length(), end);
@@ -117,6 +119,7 @@ public class NumberedString {
 		return Character.isWhitespace(c);
 	}
 	
+	/** Remvoes whitespaces from beginning and end. Modifies current instance. */
 	public void trim(){
 		int start2 = start;
 		int end2 = end;
@@ -136,6 +139,7 @@ public class NumberedString {
 		end = end2;
 	}
 	
+	/** Splits at the given character index. Uses absolute indexing. */
 	NumberedString[] splitAt(int splitAt){
 		NumberedString ns1 = new NumberedString(this, start, splitAt);
 		NumberedString ns2 = new NumberedString(this, splitAt, end);
@@ -143,6 +147,7 @@ public class NumberedString {
 		return result;
 	}
 	
+	/** Splits by the given the regex pattern. Common usage is splitting at whitespace. */ 
 	public NumberedString[] split(Pattern pattern){
 		int offset = start;
 		int cursor = 0;
