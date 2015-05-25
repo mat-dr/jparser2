@@ -54,7 +54,7 @@ public class ASTNode implements Cloneable, Serializable {
 	private static void parentheseError(int i,NumberedString ns,String errmsg){
 	    System.out.println("ns:"+ns);
 	    System.out.println("full cseq:"+ns.cseq);
-        NumberedChar nc = ns.charlist.get(i);
+        NumberedChar nc = ns.getNumChar(i);
         StringBuilder sb = new StringBuilder("block delimiter nesting error:\n"+errmsg+"\n at character: "+i
         +"\nline: "+nc.linenumber+", column: "+nc.column+"\n");
         CharSequence line = ns.getLine(nc.linenumber);

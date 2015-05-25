@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 public class NumberedString {
 	/** Normally this is shared by all instances that came from the same AST. */
-	public List<NumberedChar> charlist;
+	protected List<NumberedChar> charlist;
 	public int start;
 	public int end=-1;
 	/** Normally this is shared by all instances that came from the same AST. */
@@ -75,6 +75,10 @@ public class NumberedString {
 		return charlist.get(i).character;
 	}
 	
+	public NumberedChar getNumChar(int i){
+		return charlist.get(i);
+	}
+	
 	public boolean startsWith(CharSequence s,int startCursor){
 		int i;
 		try {
@@ -110,8 +114,7 @@ public class NumberedString {
 	}
 	
 	protected boolean isWhiteSpace(char c){
-		if (c==' ' || c=='\n' || c=='\t') return true;
-		return false;
+		return Character.isWhitespace(c);
 	}
 	
 	public void trim(){
