@@ -15,12 +15,14 @@ public class UnifierTest {
 	public void testUnifyLeft() {
         ASTNode pattern = JParse.parse("[[b+c]a]");
         ASTNode root = JParse.parse("begin x end;[[b+c]a]");
-        
-        pattern.children.add(0,new ASTNode(null, NodeType.Wildcard, new Config()));
+        ASTNode wc1 = new ASTNode(null, NodeType.Wildcard, new Config());
+        pattern.children.add(0,wc1);
         Unifier.unifyLeft(pattern, root);
-        ASTNode wc = pattern.children.get(0);
-        assert(wc.toString().equals(" x "));
-        assert(wc.type==NodeType.Atom);
+        ASTNode wc2 = pattern.children.get(0);
+        assert(wc1.toString().equals(" x "));
+        assert(wc1.type==NodeType.Atom);
+        
+        assert(wc1==wc2);
 	}
 
 }

@@ -1,3 +1,4 @@
-
+- Support comments. They should handled at the same place where quotes are handled, as the usual nesting rules don't apply
+	to them either.
 - Make memory useage more efficient by not storing the character ID for every character. 
-	(At the moment it makes debugging much more convenient.)   
+	(At the moment it makes debugging much more convenient.) I.e. refactor NumberedString.charlist.   
