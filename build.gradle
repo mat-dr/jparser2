@@ -1,0 +1,31 @@
+plugins {
+    id 'java-library'
+    id 'maven'
+}
+
+sourceCompatibility = 1.6
+
+dependencies {
+    implementation 'org.apache.commons:commons-lang3:3.5'
+
+    testImplementation 'junit:junit:4.12'
+}
+
+repositories {
+    jcenter()
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
